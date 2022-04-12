@@ -15,12 +15,12 @@ abstract class Storage<M extends Model>{
   /// Counts all [model] saved locally with [path]
   Future<int> count();
 
-  /// Tries to find value of type [T] by [id]
+  /// Tries to find value of type [M] by [id]
   ///
   /// if value cannot be found returns null
   Future<M?> findById(dynamic id);
 
-  /// Returns all stored values of type [T]
+  /// Returns all stored values of type [M]
   Future<Iterable<M>> getAll();
   
 
