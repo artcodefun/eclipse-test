@@ -7,10 +7,10 @@ abstract class Storage<M extends Model>{
   /// Saves [model] locally
   ///
   /// returns [model]'s id
-  Future<dynamic> save(M model);
+  Future<int> save(M model);
 
   /// Deletes [model] that was saved locally
-  Future delete(dynamic id);
+  Future delete(int id);
 
   /// Counts all [model] saved locally with [path]
   Future<int> count();
@@ -18,7 +18,7 @@ abstract class Storage<M extends Model>{
   /// Tries to find value of type [M] by [id]
   ///
   /// if value cannot be found returns null
-  Future<M?> findById(dynamic id);
+  Future<M?> findById(int id);
 
   /// Returns all stored values of type [M]
   Future<Iterable<M>> getAll();

@@ -15,7 +15,7 @@ class BasicHiveStorage<M extends Model> implements Storage<M>{
   final String path;
   
   @override
-  Future<M?> findById(dynamic id) async {
+  Future<M?> findById(int id) async {
     return Hive.box<M>(path).get(id);
   }
 
@@ -25,13 +25,13 @@ class BasicHiveStorage<M extends Model> implements Storage<M>{
   }
 
   @override
-  Future<dynamic> save(M model,) async {
+  Future<int> save(M model,) async {
     await Hive.box<M>(path).put(model.id, model);
     return model.id;
   }
 
   @override
-  Future delete(dynamic id,) async {
+  Future delete(int id,) async {
     await Hive.box<M>(path).delete(id);
   }
 
