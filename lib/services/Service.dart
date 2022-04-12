@@ -28,6 +28,9 @@ abstract class Service<M extends Model> implements Streamable<ServiceMessage<M>>
   /// Tries to pull [n] last models from remote storage
   Future<List<M>> pullLast(int n);
 
+  /// Tries to pull models with provided [ids] from remote storage
+  Future<List<M>> pullWithIds(List<int> ids);
+
   /// Tries to update model from remote storage with [model] value
   Future push(M model);
 }

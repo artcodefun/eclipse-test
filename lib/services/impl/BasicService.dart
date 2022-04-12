@@ -83,8 +83,11 @@ class BasicService<M extends Model> implements Service<M> {
   @override
   Future<List<M>> pullLast(int n) async {
     List<M> models;
-    models = await apiHandler.get<List<M>>(
-        apiPath, {"_sort": "id", "_order": "desc", "_limit": n}, listConverter);
+    try {
+      models = await apiHandler.get<List<M>>(
+          apiPath, {"_sort": "id", "_order": "desc", "_limit": n},
+          listConverter);
+    } catch (e){ models =[];}
 
     for (int i = 0; i < models.length; i++) {
       models[i] = await save(models[i]);
@@ -98,13 +101,15 @@ class BasicService<M extends Model> implements Service<M> {
     List<int> notFound = [];
 
     for (int id = beginId; id <= endId; id++) {
-      M? model = await load(id);
+      M? model = await storage.findById(id);
       if (model != null) {
         models.add(model);
       } else {
         notFound.add(id);
       }
     }
+
+    models.addAll(await pullWithIds(notFound));
 
     return models;
   }
@@ -116,7 +121,26 @@ class BasicService<M extends Model> implements Service<M> {
   }
 
   @override
+  Future<List<M>> pullWithIds(List<int> ids) async{
+    List<M> models;
+    String queryString = "?";
+    for (int id in ids){
+      queryString+="id=$id&";
+    }
+    try{
+    models = await apiHandler.get<List<M>>(
+        apiPath+queryString, {}, listConverter);
+    } catch (e){ models =[];}
+
+    for (int i = 0; i < models.length; i++) {
+      models[i] = await save(models[i]);
+    }
+    return models;
+  }
+
+  @override
   Stream<ServiceMessage<M>> get stream => _controller.stream;
+
 
 
 }
