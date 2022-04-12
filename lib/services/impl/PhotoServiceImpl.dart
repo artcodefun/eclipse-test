@@ -1,17 +1,17 @@
 import 'package:testapp/api/ApiHandler.dart';
 import 'package:testapp/models/abstract/Serializer.dart';
-import 'package:testapp/services/PostService.dart';
+import 'package:testapp/services/PhotoService.dart';
 import 'package:testapp/services/impl/BasicService.dart';
 import 'package:testapp/storage/Storage.dart';
 
-import '../../models/Post.dart';
+import '../../models/Photo.dart';
 
-class PostServiceImpl extends BasicService<Post> implements PostService {
-  PostServiceImpl(
-      {required Storage<Post> storage,
+class PhotoServiceImpl extends BasicService<Photo> implements PhotoService {
+  PhotoServiceImpl(
+      {required Storage<Photo> storage,
         required ApiHandler apiHandler,
         required String apiPath,
-        required Serializer<Post> serializer})
+        required Serializer<Photo> serializer})
       : super(
       storage: storage,
       apiHandler: apiHandler,
