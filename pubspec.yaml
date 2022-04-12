@@ -37,6 +37,9 @@ dependencies:
   equatable: ^2.0.3
   dio: ^4.0.4
   flutter_bloc: ^8.0.1
+  flutter_simple_dependency_injection: ^2.0.0
+  path_provider: ^2.0.9
+  provider: ^6.0.2
 
 dev_dependencies:
   flutter_test:
