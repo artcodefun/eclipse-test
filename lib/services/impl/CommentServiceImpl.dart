@@ -2,13 +2,13 @@ import 'package:testapp/api/ApiHandler.dart';
 import 'package:testapp/models/abstract/Serializer.dart';
 import 'package:testapp/services/CommentService.dart';
 import 'package:testapp/services/impl/BasicService.dart';
-import 'package:testapp/storage/Storage.dart';
+import 'package:testapp/storage/CommentStorage.dart';
 
 import '../../models/Comment.dart';
 
 class CommentServiceImpl extends BasicService<Comment> implements CommentService {
   CommentServiceImpl(
-      {required Storage<Comment> storage,
+      {required CommentStorage storage,
         required ApiHandler apiHandler,
         required String apiPath,
         required Serializer<Comment> serializer})
