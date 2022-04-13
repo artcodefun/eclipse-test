@@ -9,10 +9,15 @@ class BasicHiveStorage<M extends Model> implements Storage<M>{
   
   BasicHiveStorage(this.path, TypeAdapter<M> typeAdapter){
     Hive.registerAdapter(typeAdapter);
-    Hive.openBox<M>(path);
   }
   
   final String path;
+
+  /// Should be called before any other method
+  Future<BasicHiveStorage> init()async{
+    await Hive.openBox<M>(path);
+    return this;
+  }
   
   @override
   Future<M?> findById(int id) async {
@@ -38,6 +43,13 @@ class BasicHiveStorage<M extends Model> implements Storage<M>{
   @override
   Future<int> count() async {
     return Hive.box<M>(path).length;
+  }
+
+  @override
+  Future<Iterable<M>> getLast(int n) async{
+    var list = Hive.box<M>(path).values.toList();
+    list.sort((a,b)=>b.id.compareTo(a.id));
+    return list.take(n);
   }
   
 }

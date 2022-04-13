@@ -22,6 +22,8 @@ abstract class Storage<M extends Model>{
 
   /// Returns all stored values of type [M]
   Future<Iterable<M>> getAll();
-  
+
+  /// Returns [n] models with biggest id values
+  Future<Iterable<M>> getLast(int n);
 
 }
