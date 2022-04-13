@@ -28,15 +28,17 @@ class DioApiHandler implements ApiHandler{
   }
 
   @override
-  Future post<T>(String path, T data, ApiReverseConverter<T> converter) async{
+  Future<T> post<T>(String apiPath, T data, ApiConverter<T> converter, ApiReverseConverter<T> reverseConverter,) async{
     Response response;
-    response = await _dio.post( path, data: converter(data));
+    response = await _dio.post( apiPath, data: reverseConverter(data));
+    return converter(response.data);
   }
 
   @override
-  Future put<T>(String path, T data, ApiReverseConverter<T> converter) async{
+  Future<T> put<T>(String apiPath, T data, ApiConverter<T> converter, ApiReverseConverter<T> reverseConverter,) async{
     Response response;
-    response = await _dio.put( path, data: converter(data));
+    response = await _dio.put( apiPath, data: converter(data));
+    return converter(response.data);
   }
 
   @override

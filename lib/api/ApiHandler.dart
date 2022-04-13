@@ -17,10 +17,10 @@ abstract class ApiHandler{
   Future<T> get<T>(String apiPath, Map<String, dynamic> query, ApiConverter<T> converter);
 
   /// Performs post Request
-  Future post<T>(String apiPath, T data, ApiReverseConverter<T> converter);
+  Future<T> post<T>(String apiPath, T data, ApiConverter<T> converter, ApiReverseConverter<T> reverseConverter,);
 
   /// Performs put Request
-  Future put<T>(String apiPath, T data, ApiReverseConverter<T> converter);
+  Future<T> put<T>(String apiPath, T data, ApiConverter<T> converter, ApiReverseConverter<T> reverseConverter);
 
   /// Performs delete Request
   Future delete(String apiPath);
