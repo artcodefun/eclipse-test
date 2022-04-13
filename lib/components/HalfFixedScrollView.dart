@@ -16,7 +16,6 @@ class HalfFixedScrollView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(buildChildrenCount);
     return CustomScrollView(
       slivers: [
         SliverList(delegate: SliverChildListDelegate(fixedPart)),
