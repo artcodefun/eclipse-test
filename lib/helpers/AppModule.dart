@@ -1,6 +1,8 @@
 import 'package:flutter_simple_dependency_injection/injector.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:testapp/models/Address.dart';
+import 'package:testapp/models/Company.dart';
 import 'package:testapp/models/User.dart';
 import 'package:testapp/services/UserService.dart';
 import 'package:testapp/services/impl/UserServiceImpl.dart';
@@ -46,25 +48,24 @@ class AppModule {
 
     //then load storages
     injector.map<UserStorage>(
-        (i) => UserHiveStorage(Endpoints.userSavePath, UserAdapter()),
+        (i) => UserHiveStorage(Endpoints.userSavePath),
         isSingleton: true);
 
     injector.map<AlbumStorage>(
-            (i) => AlbumHiveStorage(Endpoints.albumSavePath, AlbumAdapter()),
+        (i) => AlbumHiveStorage(Endpoints.albumSavePath),
         isSingleton: true);
 
     injector.map<CommentStorage>(
-            (i) => CommentHiveStorage(Endpoints.commentSavePath, CommentAdapter()),
+        (i) => CommentHiveStorage(Endpoints.commentSavePath),
         isSingleton: true);
 
     injector.map<PhotoStorage>(
-            (i) => PhotoHiveStorage(Endpoints.photoSavePath, PhotoAdapter()),
+        (i) => PhotoHiveStorage(Endpoints.photoSavePath),
         isSingleton: true);
 
     injector.map<PostStorage>(
-            (i) => PostHiveStorage(Endpoints.postSavePath, PostAdapter()),
+        (i) => PostHiveStorage(Endpoints.postSavePath),
         isSingleton: true);
-
 
     //then load services
     injector.map<UserService>(
@@ -76,7 +77,7 @@ class AppModule {
         isSingleton: true);
 
     injector.map<AlbumService>(
-            (i) => AlbumServiceImpl(
+        (i) => AlbumServiceImpl(
             storage: i.get(),
             apiHandler: i.get(),
             apiPath: Endpoints.albumApiPath,
@@ -84,7 +85,7 @@ class AppModule {
         isSingleton: true);
 
     injector.map<CommentService>(
-            (i) => CommentServiceImpl(
+        (i) => CommentServiceImpl(
             storage: i.get(),
             apiHandler: i.get(),
             apiPath: Endpoints.commentApiPath,
@@ -92,7 +93,7 @@ class AppModule {
         isSingleton: true);
 
     injector.map<PhotoService>(
-            (i) => PhotoServiceImpl(
+        (i) => PhotoServiceImpl(
             storage: i.get(),
             apiHandler: i.get(),
             apiPath: Endpoints.photoApiPath,
@@ -100,7 +101,7 @@ class AppModule {
         isSingleton: true);
 
     injector.map<PostService>(
-            (i) => PostServiceImpl(
+        (i) => PostServiceImpl(
             storage: i.get(),
             apiHandler: i.get(),
             apiPath: Endpoints.postApiPath,
