@@ -54,20 +54,6 @@ class User extends Model {
     required this.company,
   });
 
-
-
-  factory User.fromMap(Map<String, dynamic> map) {
-    return User(
-      id: map['id'] as int,
-      name: map['name'] as String,
-      username: map['username'] as String,
-      email: map['email'] as String,
-      address: map['address'] as Address,
-      phone: map['phone'] as String,
-      website: map['website'] as String,
-      company: map['company'] as Company,
-    );
-  }
 }
 class UserSerializer implements Serializer<User> {
   @override
