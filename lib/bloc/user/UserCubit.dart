@@ -4,9 +4,15 @@ import 'package:testapp/services/UserService.dart';
 
 import '../../models/User.dart';
 
-
 class UserCubit extends SingleModelCubit<User> {
-  UserCubit(
-      {required SingleModelState<User> initial, required UserService service})
-      : super(initial: initial, service: service);
+  UserCubit({
+    required UserService service,
+    User? user,
+  }) : super(
+            initial: SingleModelState(
+                status: user == null
+                    ? SingleModelStateStatus.created
+                    : SingleModelStateStatus.active,
+            model: user),
+            service: service);
 }
