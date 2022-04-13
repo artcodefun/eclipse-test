@@ -19,6 +19,11 @@ abstract class Service<M extends Model> implements Streamable<ServiceMessage<M>>
   /// should first try to load from local storage and then pull from remote one
   Future<List<M>> loadSet(int beginId, int endId);
 
+  /// Tries to load [n] last models
+  ///
+  /// should first try to load from remote storage and then pull from local one
+  Future<List<M>> loadLast(int n);
+
   /// Tries to pull model from remote storage and then update/save it locally
   ///
   /// looks for model of type [M] with id [id]
@@ -32,5 +37,5 @@ abstract class Service<M extends Model> implements Streamable<ServiceMessage<M>>
   Future<List<M>> pullWithIds(List<int> ids);
 
   /// Tries to update model from remote storage with [model] value
-  Future push(M model);
+  Future<M> push(M model);
 }

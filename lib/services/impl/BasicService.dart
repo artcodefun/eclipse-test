@@ -81,6 +81,16 @@ class BasicService<M extends Model> implements Service<M> {
   }
 
   @override
+  Future<List<M>> loadLast(int n)async {
+    List<M> models = await pullLast(n);
+
+    if(models.isEmpty){
+      models = (await storage.getLast(n)).toList();
+    }
+    return models;
+  }
+
+  @override
   Future<List<M>> pullLast(int n) async {
     List<M> models;
     try {
@@ -115,9 +125,10 @@ class BasicService<M extends Model> implements Service<M> {
   }
 
   @override
-  Future push(M model) async {
-    await apiHandler.post(_pathFromId(model.id), model, reverseConverter);
-    await save(model);
+  Future<M> push(M model) async {
+    model = await apiHandler.post(apiPath, model, converter,  reverseConverter);
+    model = await save(model);
+    return model;
   }
 
   @override
@@ -140,6 +151,7 @@ class BasicService<M extends Model> implements Service<M> {
 
   @override
   Stream<ServiceMessage<M>> get stream => _controller.stream;
+
 
 
 
