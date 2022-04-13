@@ -33,9 +33,9 @@ class Company {
 
   Map<String, dynamic> toMap() {
     return {
-      'name': this.name,
-      'catchPhrase': this.catchPhrase,
-      'bs': this.bs,
+      'name': name,
+      'catchPhrase': catchPhrase,
+      'bs': bs,
     };
   }
 

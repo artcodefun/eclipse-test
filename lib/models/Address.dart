@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:hive/hive.dart';
+import 'package:testapp/models/Geo.dart';
 
 part 'Address.g.dart';
 
@@ -16,7 +17,7 @@ class Address {
   @HiveField(3)
   final String zipcode;
   @HiveField(4)
-  final Point<double> geo;
+  final Geo geo;
 
   const Address({
     required this.street,
@@ -31,7 +32,7 @@ class Address {
     String? suite,
     String? city,
     String? zipcode,
-    Point<double>? geo,
+    Geo? geo,
   }) {
     return Address(
       street: street ?? this.street,
@@ -44,11 +45,11 @@ class Address {
 
   Map<String, dynamic> toMap() {
     return {
-      'street': this.street,
-      'suite': this.suite,
-      'city': this.city,
-      'zipcode': this.zipcode,
-      'geo': this.geo,
+      'street': street,
+      'suite': suite,
+      'city': city,
+      'zipcode': zipcode,
+      'geo': geo.toMap(),
     };
   }
 
@@ -58,7 +59,7 @@ class Address {
       suite: map['suite'] as String,
       city: map['city'] as String,
       zipcode: map['zipcode'] as String,
-      geo: map['geo'] as Point<double>,
+      geo: Geo.fromMap(map["geo"]),
     );
   }
 }
