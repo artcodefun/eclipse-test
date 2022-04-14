@@ -8,6 +8,11 @@ class Endpoints{
   static const commentSavePath ="comments";
   static const photoSavePath ="photos";
 
+  /// LocalFiles endpoints
+  static const imagesFilePath ="images/";
+  static const defaultImageFileExt =".png";
+  static String getImageFilePath(String savePath, int id)=>imagesFilePath+savePath+"/$id$defaultImageFileExt";
+
   /// API endpoints
   static const baseUrl = "https://jsonplaceholder.typicode.com/";
   static const userApiPath ="users/";

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:testapp/api/ApiHandler.dart';
 import 'package:testapp/models/abstract/Serializer.dart';
 import 'package:testapp/services/PhotoService.dart';
@@ -12,12 +14,23 @@ class PhotoServiceImpl extends BasicService<Photo> implements PhotoService {
         required ApiHandler apiHandler,
         required String apiPath,
         required this.albumApiPath,
+        required String Function(int) photoFilePathResolver,
         required Serializer<Photo> serializer})
       : super(
       storage: storage,
       apiHandler: apiHandler,
       apiPath: apiPath,
-      serializer: serializer);
+      serializer: serializer,
+  preSave: (p)async{
+    ()async{
+      try{
+        if(! await File(photoFilePathResolver(p.id)).exists()) {
+          await apiHandler.download(p.url, photoFilePathResolver(p.id));
+        }
+      }finally{}
+    }();
+
+        return p;});
 
   final String albumApiPath;
 

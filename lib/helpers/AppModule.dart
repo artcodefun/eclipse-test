@@ -33,9 +33,8 @@ import 'Endpoints.dart';
 
 /// Manages dependency injection
 class AppModule {
-  Future<Injector> initialise(Injector injector) async {
+  Future<Injector> initialise(Injector injector, String appDirectory) async {
     // initializing external packages
-    String appDirectory = (await getApplicationDocumentsDirectory()).path;
     Hive.init(appDirectory);
 
     //then load data access entities
@@ -46,34 +45,20 @@ class AppModule {
 
     //then load storages
     await UserHiveStorage(Endpoints.userSavePath).init().then((s) =>
-        injector.map<UserStorage>(
-                (i) => s as UserStorage,
-            isSingleton: true)
-    );
+        injector.map<UserStorage>((i) => s as UserStorage, isSingleton: true));
 
-    await AlbumHiveStorage(Endpoints.albumSavePath).init().then((s) =>
-        injector.map<AlbumStorage>(
-                (i) => s as AlbumStorage,
-            isSingleton: true)
-    );
+    await AlbumHiveStorage(Endpoints.albumSavePath).init().then((s) => injector
+        .map<AlbumStorage>((i) => s as AlbumStorage, isSingleton: true));
 
     await CommentHiveStorage(Endpoints.commentSavePath).init().then((s) =>
-        injector.map<CommentStorage>(
-                (i) => s as CommentStorage,
-            isSingleton: true)
-    );
+        injector.map<CommentStorage>((i) => s as CommentStorage,
+            isSingleton: true));
 
-    await PhotoHiveStorage(Endpoints.photoSavePath).init().then((s) =>
-        injector.map<PhotoStorage>(
-                (i) => s as PhotoStorage,
-            isSingleton: true)
-    );
+    await PhotoHiveStorage(Endpoints.photoSavePath).init().then((s) => injector
+        .map<PhotoStorage>((i) => s as PhotoStorage, isSingleton: true));
 
     await PostHiveStorage(Endpoints.postSavePath).init().then((s) =>
-        injector.map<PostStorage>(
-                (i) => s as PostStorage,
-            isSingleton: true)
-    );
+        injector.map<PostStorage>((i) => s as PostStorage, isSingleton: true));
 
     //then load services
     injector.map<UserService>(
@@ -104,11 +89,16 @@ class AppModule {
 
     injector.map<PhotoService>(
         (i) => PhotoServiceImpl(
-            storage: i.get(),
-            apiHandler: i.get(),
-            apiPath: Endpoints.photoApiPath,
-            albumApiPath: Endpoints.albumApiPath,
-            serializer: PhotoSerializer(),),
+              storage: i.get(),
+              apiHandler: i.get(),
+              apiPath: Endpoints.photoApiPath,
+              albumApiPath: Endpoints.albumApiPath,
+              serializer: PhotoSerializer(),
+              photoFilePathResolver: (id) =>
+                  appDirectory +
+                  "/" +
+                  Endpoints.getImageFilePath(Endpoints.photoSavePath, id),
+            ),
         isSingleton: true);
 
     injector.map<PostService>(
