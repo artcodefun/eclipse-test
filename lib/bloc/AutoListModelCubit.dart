@@ -89,7 +89,7 @@ class AutoListModelCubit<M extends Model>
     List<M> newerModels = await service.loadSet(fromId, fromId + amount);
 
     if (newerModels.isEmpty) {
-      emit(state.copyWith(canLoadNewer: false));
+      emit(state.copyWith(status: AutoListModelStateStatus.active, canLoadNewer: false));
       return;
     }
 
@@ -113,7 +113,7 @@ class AutoListModelCubit<M extends Model>
     List<M> olderModels = await service.loadSet(fromId - amount, fromId);
 
     if (olderModels.isEmpty) {
-      emit(state.copyWith(canLoadOlder: false));
+      emit(state.copyWith(status: AutoListModelStateStatus.active, canLoadOlder: false));
       return;
     }
 

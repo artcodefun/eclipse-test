@@ -33,7 +33,7 @@ class PostCommentListCubit extends AutoListModelCubit<Comment> {
         amount, (state.offset - amount).clamp(0, double.maxFinite.toInt()));
 
     if (newerModels.isEmpty) {
-      emit(state.copyWith(canLoadNewer: false));
+      emit(state.copyWith(status: AutoListModelStateStatus.active, canLoadNewer: false));
       return;
     }
 
@@ -57,7 +57,7 @@ class PostCommentListCubit extends AutoListModelCubit<Comment> {
         postId, amount, state.offset + state.autoList.length);
 
     if (olderModels.isEmpty) {
-      emit(state.copyWith(canLoadOlder: false));
+      emit(state.copyWith(status: AutoListModelStateStatus.active, canLoadOlder: false));
       return;
     }
 

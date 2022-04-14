@@ -33,7 +33,7 @@ class AlbumPhotoListCubit extends AutoListModelCubit<Photo> {
         (state.offset - amount).clamp(0, double.maxFinite.toInt()));
 
     if (newerModels.isEmpty) {
-      emit(state.copyWith(canLoadNewer: false));
+      emit(state.copyWith(status: AutoListModelStateStatus.active, canLoadNewer: false));
       return;
     }
 
@@ -58,7 +58,7 @@ class AlbumPhotoListCubit extends AutoListModelCubit<Photo> {
 
 
     if (olderModels.isEmpty) {
-      emit(state.copyWith(canLoadOlder: false));
+      emit(state.copyWith(status: AutoListModelStateStatus.active, canLoadOlder: false));
       return;
     }
 
