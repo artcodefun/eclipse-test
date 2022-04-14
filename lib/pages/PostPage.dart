@@ -75,12 +75,16 @@ class PostPage extends StatelessWidget {
                               ],
                             ),
                           ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 20),
-                          child: Text(
-                            "Comments :",
-                            style: theme.textTheme.headline5,
-                          ),
+                        Row(mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 20),
+                              child: Text(
+                                "Comments :",
+                                style: theme.textTheme.headline5,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                       builder: (ctx, i) => CommentListItem(
